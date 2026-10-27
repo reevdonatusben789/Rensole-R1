@@ -104,6 +104,9 @@ html .wm i{clip-path:none;border-radius:99px;background:rgba(255,255,255,.2);col
 #box button{border-radius:99px;background:#f5f5f7;color:#111;letter-spacing:0}
 .ok{background:rgba(255,255,255,.08);border:0;border-radius:12px}.ok.on{background:#f5f5f7;color:#111}
 .mk{height:1.5em;width:auto;flex:none;overflow:visible}html .wm{gap:.55em}
+.lg{position:absolute;left:50%;top:42%;translate:-50% -50%;width:30%;aspect-ratio:1;border-radius:24%;background:#fff;display:grid;place-items:center;padding:8%;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+.lg img{position:static;width:100%;height:100%;object-fit:contain}
+.face.hasLogo .ini{place-items:end center;padding:0 0 7%;font-size:1.15vw;font-weight:600;opacity:.95}
 </style></head><body>
 <div id="bg"></div><div id="grid"></div><div id="scan"></div>
 <header>
@@ -161,6 +164,7 @@ const play = n => { if (S.sound) { AC.resume(); sfx[n](); } };
 
 // ---- state ----
 const TVFALLBACK = [];
+const DOM = { yt: 'youtube.com', prime: 'primevideo.com', nf: 'netflix.com', hs: 'hotstar.com', sony: 'sonyliv.com', z5: 'zee5.com', tw: 'twitch.tv', web: 'google.com' };   // logos are fetched online; the name shows if offline
 let me = null, tab = 'games', idx = { games: 0, tv: 0 }, games = [], tvApps = TVFALLBACK;
 let sheetOn = false, sel = 0, locked = true, authOn = false, createMode = false;
 const items = () => tab === 'games' ? [...games, { add: true }] : tvApps;
@@ -176,6 +180,7 @@ function render() {
     if (g.add) { f.classList.add('add'); f.innerHTML = '<span>+</span>'; return t; }
     f.style.background = g.color ? `linear-gradient(145deg,${g.color},#0a0a1e 95%)` : grad(g.name);
     const s = el('span', 'ini'); s.textContent = g.color ? g.name.toUpperCase() : g.name.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase(); f.append(s);
+    if (DOM[g.id]) { const lg = el('div', 'lg'), im = new Image(); im.onload = () => { if (im.naturalWidth >= 48) { lg.append(im); f.append(lg); f.classList.add('hasLogo'); } }; im.src = 'https://www.google.com/s2/favicons?domain=' + DOM[g.id] + '&sz=128'; }
     if (g.art) { const im = new Image(); im.onload = () => f.append(im); im.src = g.art; }
     return t;
   }));
