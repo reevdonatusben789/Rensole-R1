@@ -1,6 +1,6 @@
 {
   "name": "rensole-r1",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Rensole R1 - console-style game and smart TV launcher",
   "author": "Reev D.B studios",
   "main": "main.js",
@@ -38,11 +38,9 @@
       ],
       "icon": "build/icon.ico"
     },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false
-    },
-    "publish": [
+   "nsis": { "oneClick": true, "perMachine": false, "artifactName": "Rensole-Setup-${version}.${ext}" },
+"portable": { "artifactName": "Rensole-${version}-portable.${ext}" },    
+"publish": [
       {
         "provider": "github",
         "owner": "reevdonatusben789",
