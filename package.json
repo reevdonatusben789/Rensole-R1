@@ -1,0 +1,53 @@
+{
+  "name": "rensole-r1",
+  "version": "2.0.0",
+  "description": "Rensole R1 - console-style game and smart TV launcher",
+  "author": "Reev D.B studios",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "@fontsource/orbitron": "^5.1.0",
+    "@fontsource/rajdhani": "^5.1.0",
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.reev.rensole",
+    "productName": "Rensole",
+    "asar": false,
+    "files": [
+      "main.js",
+      "preload.js",
+      "tv-preload.js",
+      "edge-pad.ps1",
+      "firebase-config.json",
+      "renderer/**/*",
+      "package.json",
+      "build/icon.ico"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "reevdonatusben789",
+        "repo": "rensole"
+      }
+    ]
+  }
+}
